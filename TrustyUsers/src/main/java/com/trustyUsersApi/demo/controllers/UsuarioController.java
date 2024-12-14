@@ -4,6 +4,7 @@ import com.trustyUsersApi.demo.models.UsuarioModel;
 import com.trustyUsersApi.demo.repository.UsuarioRepository;
 import com.trustyUsersApi.demo.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,9 +29,14 @@ public class UsuarioController {
         return usuarioRepository.findById(id);
     }
 
+//    @GetMapping("/usersAll")
+//    public Optional<UsuarioModel> getRoles(){
+//        return usuarioRepository.findUsuarioModelByRank();
+//    }
+
     @PostMapping("/users")
-    public UsuarioModel saveUser(@RequestBody UsuarioModel usuario){
-        return usuarioService.guardarUsuario(usuario);
+    public UsuarioModel postUser(@RequestBody UsuarioModel usuario){
+        return usuarioRepository.save(usuario);
     }
 
     @DeleteMapping("/users/{id}")

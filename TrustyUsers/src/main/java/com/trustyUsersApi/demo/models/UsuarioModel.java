@@ -32,4 +32,5 @@ public class UsuarioModel {
     public UsuarioModel() {
 
     }
+
 }
