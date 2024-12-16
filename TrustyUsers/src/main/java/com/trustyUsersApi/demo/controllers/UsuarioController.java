@@ -2,9 +2,9 @@ package com.trustyUsersApi.demo.controllers;
 
 import com.trustyUsersApi.demo.models.UsuarioModel;
 import com.trustyUsersApi.demo.repository.UsuarioRepository;
+import com.trustyUsersApi.demo.services.UserDTO;
 import com.trustyUsersApi.demo.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,19 +20,18 @@ public class UsuarioController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping("/users")
-    public ArrayList<UsuarioModel> getUsers(){
+    public ArrayList<UserDTO> getUsers(){
         return usuarioService.obtenerUsuarios();
     }
 
     @GetMapping("/users/{id}")
-    public Optional<UsuarioModel> getUser(@RequestParam Long id){
-        return usuarioRepository.findById(id);
+    public Optional<UserDTO> getUser(@PathVariable Long id){
+        return usuarioService.obtenerUsuario(id);
     }
-
-//    @GetMapping("/usersAll")
-//    public Optional<UsuarioModel> getRoles(){
-//        return usuarioRepository.findUsuarioModelByRank();
-//    }
+    @GetMapping("/usersAllRanks/{type}")
+   public ArrayList<UserDTO> getRoles(@PathVariable String type){
+        return usuarioService.getRank(type);
+    }
 
     @PostMapping("/users")
     public UsuarioModel postUser(@RequestBody UsuarioModel usuario){
@@ -40,8 +39,9 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/users/{id}")
-    public  void deleteUserById(@RequestParam Long id){
+    public  void deleteUserById(@PathVariable Long id){
         usuarioRepository.deleteById(id);
     }
+
 
 }

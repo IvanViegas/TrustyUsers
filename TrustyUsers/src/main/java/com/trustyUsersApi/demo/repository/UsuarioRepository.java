@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepository extends CrudRepository<UsuarioModel, Long> {
 
-    //Optional<UsuarioModel> findUsuarioModelByRank();
+    List<UsuarioModel> findAllByRank(String rank);
 }
